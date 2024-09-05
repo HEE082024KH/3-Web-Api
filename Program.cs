@@ -28,6 +28,7 @@ internal class Program
             return Results.BadRequest();
           }
           movies.Add(movie);
+          return Results.Created();
         });
 
         // UPDATE: Update a movie
