@@ -1,8 +1,8 @@
 class Movie
 {
   private static int _id = 0;
-  public int Id { get; set;}
-  public string Title {get; set;}
+  public int Id { get; set; }
+  public string Title { get; set; }
 
   public Movie(string title)
   {
@@ -35,9 +35,25 @@ internal class Program
         });
 
         // UPDATE: Update a movie
-        app.MapPut("/movies/{Id}", (int Id) => $"Update movie with id: {Id}");
+        // app.MapPut("/movies/{Id}", (int Id, List<Movie> movies) => 
+        // {
+        //   var movie = movies.Find{(movie) => movie.Id == Id;
+
+        //   if 
+        // });
+
         // DELETE: Delete a movie
-        app.MapDelete("/movies/{Id}", (int Id) => $"Delete movie with id: {Id}");
+        app.MapDelete("/movies/{Id}", (int Id, List<Movie> movies) => 
+        {
+          var movie = movies.Find((movie) => movie.Id == Id);
+
+          if (movie == null)
+          {
+            return Results.NotFound();
+          }
+          movies.Remove(movie);
+          return Results.Ok();
+        });
 
 
         // Check system health
